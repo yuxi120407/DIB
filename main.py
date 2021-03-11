@@ -121,13 +121,15 @@ def train(epoch):
         optimizer.step()
 
         train_loss += loss.item()
+        IXZ_loss += IXZ.item()
         _, predicted = outputs.max(1)
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
-    print ('Step [{}/{}], Loss: {:.4f}, Acc: {}% [{}/{}])' 
+    print ('Step [{}/{}], Loss: {:.4f},I_xz: {:.4f},  Acc: {}% [{}/{}])' 
                .format(batch_idx, 
                        len(trainloader), 
                        train_loss/(batch_idx+1),
+                       IXZ_loss/(batch_idx+1),
                        100.*correct/total, correct, total))
 
 def test(epoch):
@@ -170,6 +172,7 @@ def test(epoch):
 
 
 #--------------------Main----------------------------------#
+best_acc = 0
 all_IB_acc = []
 for epoch in range(args.epochs):
     train(epoch)
