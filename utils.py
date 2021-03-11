@@ -79,7 +79,7 @@ def HSIC(x, y, s_x, s_y):
     return HSIC
 
 
-def loss_fn(inputs, outputs, targets, batch_size，name):
+def loss_fn(inputs, outputs, targets, batch_size,name):
     inputs_2d = inputs.view(batch_size, -1)
     error = F.softmax(outputs,dim=1) - F.one_hot(targets,10)
     if name == 'cross_entropy':
