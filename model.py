@@ -25,8 +25,8 @@ class VGG(nn.Module):
 
     def forward(self, x):
         out = self.features(x)
-        out = out.view(out.size(0), -1)
-        out = self.classifier(out)
+        z = out.view(out.size(0), -1)
+        out = self.classifier(z)
         return out
 
     def _make_layers(self, cfg):
