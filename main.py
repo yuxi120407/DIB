@@ -104,6 +104,7 @@ def train(epoch):
     print('\nEpoch [{}/{}]'.format(epoch+1, args.epochs))
     net.train()
     train_loss = 0
+    IXZ_loss = 0
     correct = 0
     total = 0
     for batch_idx, (inputs, targets) in enumerate(trainloader):
