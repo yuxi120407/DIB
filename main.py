@@ -113,10 +113,16 @@ def train(epoch):
         Z,outputs = net(inputs)
         loss = criterion(outputs, targets)
         with torch.no_grad():
+                
             Z_numpy = Z.cpu().detach().numpy()
             k = squareform(pdist(Z_numpy, 'euclidean'))       # Calculate Euclidiean distance between all samples.
-            sigma = np.mean(np.mean(np.sort(k[:, :10], 1))) 
-        IXZ = calculate_MI(inputs,Z,s_x=1000,s_y=sigma**2)
+            sigma_z = np.mean(np.mean(np.sort(k[:, :10], 1))) 
+        
+            inputs_numpy = inputs.cpu().detach().numpy()
+            k_input = squareform(pdist(inputs_numpy, 'euclidean'))
+            sigma_input = np.mean(np.mean(np.sort(k_input[:, :10], 1)))
+                
+        IXZ = calculate_MI(inputs,Z,s_x=sigma_input,s_y=sigma_z)
         total_loss = loss + 0.01*IXZ
         total_loss.backward()
         optimizer.step()
