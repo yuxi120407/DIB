@@ -119,6 +119,7 @@ def train(epoch):
             sigma_z = np.mean(np.mean(np.sort(k[:, :10], 1))) 
         
             inputs_numpy = inputs.cpu().detach().numpy()
+            inputs_numpy = inputs_numpy.reshape(inputs.shape[0],-1)
             k_input = squareform(pdist(inputs_numpy, 'euclidean'))
             sigma_input = np.mean(np.mean(np.sort(k_input[:, :10], 1)))
                 
